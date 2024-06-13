@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="jobposting.css" />
+    <title>Job Posting</title>
+  </head>
+  <body>
+    <nav>
+      <ul class="left-nav">
+        <li><a href="./dasboard.html">Dashboard</a></li>
+        <li><a href="#" id="logoutBtn">Logout</a></li>
+      </ul>
+      <div class="center-search">
+        <input type="text" placeholder="Search here" id="search-bar" />
+        <button id="search-btn">Search</button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h2>Job Listings</h2>
+      <div id="job-listing" class="job-listing"></div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Function to fetch all job listings and display them
+        function fetchAllJobs() {
+          fetch("http://localhost:8080/all/joblist")
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(
+                  "Network response was not ok " + response.statusText
+                );
+              }
+              return response.json();
+            })
+            .then((data) => {
+              const jobsContainer = document.getElementById("job-listing");
+              jobsContainer.innerHTML = ""; // Clear previous results
+
+              data.forEach((job) => {
+                displayJob(job);
+              });
+            })
+            .catch((error) => {
+              console.error("Error fetching job listings:", error);
+              alert("An error occurred. Please try again later.");
+            });
+        }
+
+        // Function to display a single job
+        function displayJob(job) {
+          const jobDiv = document.createElement("div");
+          jobDiv.classList.add("job");
+
+          const jobDetailsDiv = document.createElement("div");
+          jobDetailsDiv.classList.add("job-details");
+
+          jobDetailsDiv.innerHTML = `
+                    <h3>${job.jobTitle}</h3>
+                    <p><strong>Job Details:</strong> ${job.jobDescription}</p>
+                    <p><strong>Key Skills:</strong> ${job.keySkillRequire}</p>
+                    <p><strong>Salary:</strong> ${job.salary}</p>
+                `;
+
+          const applyBtn = document.createElement("button");
+          applyBtn.classList.add("apply-btn");
+          applyBtn.textContent = "Apply Here";
+
+          // Associate jobId with DOM element
+          applyBtn.dataset.jobId = job.jobId;
+
+          // Add event listener to apply button
+          applyBtn.addEventListener("click", function () {
+            const jobId = this.dataset.jobId; // Retrieve jobId from clicked button
+            applyForJob(jobId); // Pass the jobId to the apply function
+          });
+
+          jobDiv.appendChild(jobDetailsDiv);
+          jobDiv.appendChild(applyBtn);
+
+          document.getElementById("job-listing").appendChild(jobDiv);
+        }
+
+        // Call fetchAllJobs when the page loads
+        fetchAllJobs();
+
+        // Add event listener for search button
+        document
+          .getElementById("search-btn")
+          .addEventListener("click", searchJob);
+
+        // Function to search for a job
+        function searchJob() {
+          const query = document.getElementById("search-bar").value.trim();
+          if (query) {
+            fetch(`http://localhost:8080/jobdetails/search/${query}`)
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(
+                    "Network response was not ok " + response.statusText
+                  );
+                }
+                return response.json();
+              })
+              .then((data) => {
+                const jobsContainer = document.getElementById("job-listing");
+                jobsContainer.innerHTML = ""; // Clear previous results
+
+                if (data && data.jobTitle) {
+                  displayJob(data);
+                } else {
+                  jobsContainer.innerHTML =
+                    "<p>No job found with the given title.</p>";
+                }
+              })
+              .catch((error) => {
+                console.error("Error fetching job details:", error);
+                alert("An error occurred. Please try again later.");
+              });
+          } else {
+            alert("Please enter a job title to search.");
+          }
+        }
+
+        // Function to apply for a job
+        function applyForJob(jobId) {
+          const candidateId = sessionStorage.getItem("candidateId");
+          if (!candidateId) {
+            alert("Candidate ID not found. Please log in or register.");
+            return;
+          }
+
+          fetch("http://localhost:8080/job/apply", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              jobId: jobId,
+              candidateId: candidateId,
+            }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to apply for job");
+              }
+              return response.text();
+            })
+            .then((data) => {
+              alert(data);
+            })
+            .catch((error) => {
+              console.error("Error applying for job:", error);
+              alert("An error occurred while applying for the job.");
+            });
+        }
+
+        // Function to handle logout
+        function logout() {
+          sessionStorage.removeItem("candidateId");
+          window.location.href = "./login.html"; // Redirect to login page
+        }
+
+        // Add event listener to the logout button
+        document.getElementById("logoutBtn").addEventListener("click", logout);
+      });
+    </script>
+  </body>
+</html>

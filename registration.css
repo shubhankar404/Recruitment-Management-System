@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
+}
+
+/* Header */
+header {
+  width: 100%;
+  padding: 20px;
+  /* background-color: rgba(236, 239, 240, 0.986); */
+  background-color: #e4e9ee;
+  color: black;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #0c0b0b;
+}
+
+/* Main Content */
+.container {
+  max-width: 700px;
+  width: 100%;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  margin: 20px auto;
+  flex: 1;
+}
+
+.container .title {
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+
+.container .title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+.content form .user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+
+form .user-details .input-box {
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+
+form .input-box span.details {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.user-details .input-box input,
+.user-details .input-box textarea {
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.user-details .input-box input[type="text"]:focus,
+.user-details .input-box input[type="text"]:valid,
+.user-details .input-box input[type="email"]:focus,
+.user-details .input-box input[type="email"]:valid,
+.user-details .input-box input[type="password"]:focus,
+.user-details .input-box input[type="password"]:valid,
+.user-details .input-box textarea:focus,
+.user-details .input-box textarea:valid {
+  border-color: #9b59b6;
+}
+
+/* Adjust width of the address input box */
+#address {
+  width: 200px;
+}
+
+/* Register Button */
+.container .button input {
+  height: 45px;
+  width: 200px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.container .button input:hover {
+  background: linear-gradient(135deg, #9b59b6, #71b7e6);
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}

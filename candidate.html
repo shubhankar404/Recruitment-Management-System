@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="candidate.css" />
+    <title>Application Form</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/Registation.html">Sign up</a></li>
+          <li><a href="/Userlogin.html">Sign in</a></li>
+          <li><a href="dasboard.html">Dasboard</a></li>
+          <li><a href="#" id="logout_link">Log Out</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="content">
+      <div class="container">
+        <h2>Candidate Update</h2>
+        <form id="candidate-form">
+          <label for="qualification"
+            >Highest Qualification: <span class="req"> </span
+          ></label>
+          <input
+            type="text"
+            id="qualification"
+            name="qualification"
+            placeholder="Enter your highest qualification"
+          />
+
+          <label for="resume">Upload Resume:</label>
+          <input
+            type="file"
+            id="resume"
+            name="resume"
+            accept=".pdf,.doc,.docx"
+          />
+
+          <label for="photo">Upload Photo:</label>
+          <input type="file" id="photo" name="photo" accept="image/*" />
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2024 Application Form</p>
+    </footer>
+    <script>
+      document
+        .getElementById("candidate-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Get candidate ID from session storage
+          const candidateId = sessionStorage.getItem("candidateId");
+          if (!candidateId) {
+            alert("Candidate Id is not found");
+            return;
+          }
+
+          // Get highest qualification from form input
+          const highestQualification =
+            document.getElementById("qualification").value;
+
+          // Make PUT request to update highest qualification
+          fetch(
+            `http://localhost:8080/candidates/updateQualification?candidateId=${candidateId}&highestQualification=${highestQualification}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+            .then((response) => response.text())
+            .then((data) => {
+              console.log("Success:", data);
+              alert("Highest Qualification Updated Successfully");
+              window.location.href = "dasboard.html";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+
+      document
+        .getElementById("logout_link")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          sessionStorage.removeItem("candidateId");
+          alert("Logged out successfully!");
+          window.location.href = "Userlogin.html"; // Redirect to login or home page
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Login</title>
+    <link rel="stylesheet" href="Userlogin.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="./home.html">Home</a></li>
+          <li><a href="./Registation.html">Sign in</a></li>
+          <li><a href="./forgetpassword.html">Change password</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="content">
+      <div class="container">
+        <h2>User Login</h2>
+        <form id="loginForm">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2024 Recruitment Management System. All Rights Reserved.</p>
+    </footer>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          fetch(`http://localhost:8080/user/login/${username}/${password}`)
+            .then((response) => {
+              if (response.ok) {
+                return response.json(); // Parse JSON response
+              } else {
+                throw new Error("Invalid username or password");
+              }
+            })
+            .then((data) => {
+              const candidateId = data.candidateId;
+              sessionStorage.setItem("candidateId", candidateId);
+              alert("Login successful!");
+              // window.location.href = "candidate.html";
+              window.location.href = "dasboard.html";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert(error.message);
+            });
+        });
+    </script>
+  </body>
+</html>

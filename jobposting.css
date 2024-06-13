@@ -1,0 +1,130 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: darkgrey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation Bar */
+nav {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul.left-nav {
+    margin-right: auto;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav ul li a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+}
+
+.center-search {
+    display: flex;
+    align-items: center;
+}
+
+.center-search input {
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+    margin-right: 10px;
+}
+
+.center-search button {
+    padding: 5px 10px;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.center-search button:hover {
+    background-color: #f0f0f0;
+}
+
+.container {
+    margin-top: 80px;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.job-listing {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.job {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.job-details {
+    flex-grow: 1;
+}
+
+.job h3 {
+    margin-top: 0;
+}
+
+.job p {
+    margin: 10px 0;
+}
+
+.apply-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    color: white;
+    cursor: pointer;
+}
+
+.apply-btn:hover {
+    background: linear-gradient(135deg, #9b59b6, #71b7e6);
+}

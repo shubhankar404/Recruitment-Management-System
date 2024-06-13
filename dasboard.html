@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dasboard</title>
+    <link rel="stylesheet" href="dasboard.css" />
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <h1>Recruitment Management System</h1>
+        <nav>
+          <ul>
+            <li><a href="./dasboard.html">Dashboard</a></li>
+            <li><a href="candidate.html">Candidate Update</a></li>
+            <li><a href="./jobposting.html">Jobs</a></li>
+            <li><a href="./ApplicationList.html">Applications</a></li>
+          </ul>
+          <a href="#" class="goto-website">Go To Website</a>
+        </nav>
+      </aside>
+      <main class="main-content">
+        <header class="header">
+          <div class="user-menu">
+            <button onclick="location.href='forgetpassword.html'">
+              Change Password
+            </button>
+            <button id="logout_link">Logout</button>
+          </div>
+        </header>
+        <section class="quick-stats">
+          <h1>Quick Stats</h1>
+          <div class="stats-grid">
+            <div class="stat-card" style="background-color: rgb(230, 162, 36)">
+              <div class="stat-icon flag"></div>
+              <div class="stat-info">
+                <span class="stat-value">5</span>
+                <span class="stat-label" style="color: aliceblue"
+                  >Total Application</span
+                >
+              </div>
+            </div>
+            <div class="stat-card" style="background-color: rgb(153, 209, 228)">
+              <div class="stat-icon star"></div>
+              <div class="stat-info">
+                <span class="stat-value">3</span>
+                <span class="stat-label" style="color: aliceblue"
+                  >New Applications Today</span
+                >
+              </div>
+            </div>
+            <div class="stat-card" style="background-color: rgb(229, 240, 81)">
+              <div class="stat-icon user"></div>
+              <div class="stat-info">
+                <span class="stat-value">150</span>
+                <span class="stat-label" style="color: aliceblue"
+                  >Total Candidates</span
+                >
+              </div>
+            </div>
+            <div class="stat-card" style="background-color: cornflowerblue">
+              <div class="stat-icon download"></div>
+              <div class="stat-info">
+                <span class="stat-value">20</span>
+                <span class="stat-label" style="color: aliceblue"
+                  >Total Jobs</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="chart">
+            <div
+              class="chart-left"
+              style="background-color: lightblue; text-align: center"
+            >
+              <b>Applications Status Overview</b>
+              <div class="inside-chart">
+                <img src="./chart.png" alt="chart" />
+              </div>
+            </div>
+            <div
+              class="chart-right"
+              style="background-color: lightblue; text-align: center"
+            >
+              <b>Applications and Hires</b>
+              <div>
+                <img
+                  src="./Pi_chart.png"
+                  alt="Pi_chart"
+                  style="height: 260px"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      document
+        .getElementById("logout_link")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          sessionStorage.removeItem("candidateId");
+          alert("Logged out successfully!");
+          window.location.href = "./Userlogin.html"; // Redirect to login or home page
+        });
+    </script>
+  </body>
+</html>

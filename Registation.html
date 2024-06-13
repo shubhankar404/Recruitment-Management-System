@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registration</title>
+    <link rel="stylesheet" href="registration.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="header-container">
+        <h1>Recruitment Management System</h1>
+        <nav>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="/Userlogin.html">Sign in</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="./ContactUs.html" id="contactLink">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="title">Registration</div>
+      <div class="content">
+        <form id="registrationForm">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details"> <strong>Username</strong></span>
+              <input
+                type="text"
+                id="username"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details"><strong>Fathername</strong> </span>
+              <input
+                type="text"
+                id="fathername"
+                placeholder="Enter your fathername"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details"> <strong> Email</strong></span>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details"> <strong>Mobile Number </strong></span>
+              <input
+                type="text"
+                id="phone"
+                maxlength="10"
+                placeholder="Enter your valid mobile number"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details"> <strong> Password</strong></span>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details"> <strong> Confirm Password</strong></span>
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                required
+              />
+            </div>
+          </div>
+          <div class="input-box">
+            <span class="details"> <strong>Address </strong></span>
+            <textarea
+              name="address"
+              id="address"
+              rows="2"
+              placeholder="Enter your Address"
+              required
+            ></textarea>
+          </div>
+          <div class="button">
+            <input type="submit" value="Register" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <p>&copy; 2024 Recruitment Management System. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const user = {
+            userName: document.getElementById("username").value,
+            fatherName: document.getElementById("fathername").value,
+            emailId: document.getElementById("email").value,
+            mobileNumber: document.getElementById("phone").value,
+            password: document.getElementById("password").value,
+            address: document.getElementById("address").value,
+          };
+
+          fetch("http://localhost:8080/user/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+          })
+            .then((response) => {
+              if (response.ok) {
+                return response.text();
+              }
+              throw new Error("Network response was not ok.");
+            })
+            .then((data) => {
+              alert("Registration successful: " + data);
+              window.location.href = "Userlogin.html";
+            })
+            .catch((error) => {
+              alert(
+                "There was a problem with your registration request: " +
+                  error.message
+              );
+            });
+        });
+    </script>
+  </body>
+</html>

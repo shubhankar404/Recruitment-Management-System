@@ -1,0 +1,19 @@
+body {
+    padding-top: 56px;
+}
+
+.header {
+    background: #e4e9ee;
+    color: white;
+    padding: 100px 0;
+}
+
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+}
+
+.card-img-top {
+    height: 150px;
+    object-fit: cover;
+}

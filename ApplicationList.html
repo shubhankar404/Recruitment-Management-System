@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Applications</title>
+    <link rel="stylesheet" href="Application.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>Job Applications</h1>
+    </header>
+
+    <!-- Navbar -->
+    <nav>
+      <ul>
+        <li><a href="dasboard.html">Dashboard</a></li>
+        <li><a id="logoutBtn">Logout</a></li>
+        <!-- <li><a href="#">Other Field</a></li> -->
+      </ul>
+    </nav>
+
+    <!-- Table -->
+    <table id="jobApplicationsTable">
+      <thead>
+        <tr>
+          <th>Application ID</th>
+          <th>User Name</th>
+          <th>Job Title</th>
+        </tr>
+      </thead>
+      <tbody id="jobApplicationsBody">
+        <!-- Table body will be populated dynamically -->
+      </tbody>
+    </table>
+
+    <!-- Footer -->
+    <footer>
+      <p>Footer content here</p>
+    </footer>
+
+    <!-- JavaScript for fetching data and logout functionality -->
+    <script>
+      // Retrieve candidateId from sessionStorage
+      const candidateId = sessionStorage.getItem("candidateId");
+
+      // Function to handle logout
+      function logout() {
+        sessionStorage.removeItem("candidateId");
+        window.location.href = "Userlogin.html"; // Redirect to login page
+      }
+
+      // Add event listener to the logout button
+      document.getElementById("logoutBtn").addEventListener("click", logout);
+
+      // Fetch data from the API with candidateId as a parameter
+      fetch(`http://localhost:8080/get/applications?candidateId=${candidateId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          // Get the table body element
+          const tableBody = document.getElementById("jobApplicationsBody");
+
+          // Iterate over the data and create table rows
+          data.forEach((application) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                        <td>${application.jobApplicationId}</td>
+                        <td>${application.userName}</td>
+                        <td>${application.jobTitle}</td>
+                    `;
+            tableBody.appendChild(row);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    </script>
+  </body>
+</html>
